@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero to Hero: Python Discord Bot Development</title>
+    <style>
+        /* Base Styling & Tech Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #6366f1;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Course Pricing Table Grid */
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .tier-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+        }
+
+        .tier-card.active-free {
+            border-color: #10b981;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #6366f1;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .btn.free-btn {
+            background-color: #10b981;
+        }
+
+        /* Lesson Content Sections */
+        .lesson {
+            background-color: #1e293b;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid #6366f1;
+        }
+
+        .lesson h2 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+
+        .lesson-meta {
+            font-size: 0.9rem;
+            color: #10b981;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: #818cf8;
+            margin-top: 1.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Zero to Hero: Discord Bot Academy</h1>
+        <p>Master Python backend engineering, build interactive chat apps, and start your path toward a profitable programming career.</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="pricing-table">
+            <div class="tier-card active-free">
+                <span class="lesson-meta">Unlocked</span>
+                <h3>Tier 1: Kickstart</h3>
+                <div class="price">FREE</div>
+                <p>3 Lessons introducing developer mindsets, tech opportunities, and passive income strategies.</p>
+                <a href="#lessons" class="btn free-btn">Read Below</a>
+            </div>
+            <div class="tier-card">
+                <span class="lesson-meta" style="color: #6366f1;">Premium</span>
+                <h3>Tier 2: The Basics</h3>
+                <div class="price">$5 USD</div>
+                <p>10 Lessons teaching local environments, event listeners, bot commands, and a full moderation bot script.</p>
+                <a href="#" class="btn">Unlock Basics</a>
+            </div>
+            <div class="tier-card">
+                <span class="lesson-meta" style="color: #a855f7;">Expert</span>
+                <h3>Tier 3: Advanced</h3>
+                <div class="price">$10 USD</div>
+                <p>17 Lessons detailing Slash commands, Embed layouts, button components, databases, and 24/7 hosting.</p>
+                <a href="#" class="btn" style="background-color: #a855f7;">Unlock Advanced</a>
+            </div>
+        </section>
+
+        <section id="lessons">
+            
+            <article class="lesson">
+                <div class="lesson-meta">Lesson 1</div>
+                <h2>Why Discord Bots Are Your Golden Ticket to Coding</h2>
+                <p>Welcome to the world of software engineering! If you have ever wanted to learn how to code but felt completely overwhelmed by confusing textbooks or boring math tutorials, you are in the exact right place.</p>
+                <p>Most people fail when they try to learn programming because they start with projects that aren't exciting. They spend weeks writing code that only prints simple numbers or words in a boring black terminal box. It feels isolated, and it is easy to lose motivation. Discord bot development changes everything.</p>
+                
+                <h3>The Power of Immediate Visual Feedback</h3>
+                <p>When you code a Discord bot, you aren't writing code in a vacuum. You are building an actual digital teammate. The moment you type a line of code, your bot instantly springs to life inside a real Discord server. You can see its status change to green, see its profile picture, and watch it reply to your friends in real-time.</p>
+                <p>That instant feedback loop creates a massive spike in motivation. It turns coding from a chore into an interactive system where every feature you add is a new level unlocked.</p>
+                
+                <h3>The Financial Blueprint: How Bots Make Money</h3>
+                <p>You aren't just learning a hobby here; you are building a scalable business asset. Here is how developers use them to generate revenue to support themselves and their families:</p>
+                <ul>
+                    <li><strong>Premium Tier Features:</strong> You give the basic bot away for free to thousands of servers, but lock advanced features (like automated server economies, custom graphics, or specialized logging) behind a monthly subscription.</li>
+                    <li><strong>Custom Contract Development:</strong> Gaming communities, streamers, and businesses are constantly looking for custom bots tailored specifically to their needs. They will pay clean premiums to a developer who can build custom automation.</li>
+                    <li><strong>Server Ads and Sponsorships:</strong> Once a bot reaches a large volume of daily active users, your bot's profile or help panels become prime digital real estate for tech and gaming sponsorships.</li>
+                </ul>
+            </article>
+
+            <article class="lesson">
+                <div class="lesson-meta">Lesson 2</div>
+                <h2>What Does It Actually "Feel Like" to Be a Developer?</h2>
+                <p>Before you write your first line of code, we need to completely demystify what a software engineer actually does. A lot of movies make coding look like someone typing rapidly on a glowing screen, hacking into a system in seconds. That is completely fake.</p>
+                
+                <h3>The LEGO Brick Analogy</h3>
+                <p>Being a developer feels much more like playing with a massive box of digital LEGO bricks.</p>
+                <ul>
+                    <li>Discord provides you with the raw pieces: text channels, user profiles, clickable buttons, and menus.</li>
+                    <li>Python provides you with the glue: tools to connect those pieces together, make decisions, and manipulate data.</li>
+                </ul>
+                <p>Your job as a programmer is simply to look at the documentation, figure out how these pieces click together, and arrange them to build something cool. You don't have to invent anything from scratch.</p>
+                
+                <h3>Redefining Your Relationship with Errors</h3>
+                <p>As you begin your journey, you <em>will</em> run into errors. Your code will break, your bot will crash, and your computer will output lines of bright red text. Beginners often see an error message and think: <em>"I'm not smart enough for this. I failed."</em></p>
+                <p><strong>A professional developer sees an error message and thinks:</strong> <em>"Awesome, the computer is telling me exactly where the problem is."</em></p>
+                <p>An error message isn't a grade; it's a helpful clue. It is your computer acting as a navigation system, pointing to the exact line number where you made a typo or a logical mistake. Once you stop fearing errors, you become completely unstoppable.</p>
+            </article>
+
+            <article class="lesson">
+                <div class="lesson-meta">Lesson 3</div>
+                <h2>How This Project Prepares You for a High-Paying Tech Career</h2>
+                <p>It is easy to think of a Discord bot as just a toy or a simple gaming tool. But behind the scenes, a Discord bot uses the exact same software architecture as the world's highest-paid backend systems.</p>
+                <p>When tech recruiters look at a candidate's resume, they don't care about school grades nearly as much as they care about real-world projects. By building a Discord bot, you are checking off the exact skill boxes that top tech companies look for.</p>
+                
+                <h3>The Real-World Corporate Skills You Are Secretly Learning:</h3>
+                <ul>
+                    <li><strong>Handling WebSockets and Web APIs:</strong> Live dispatch services need to track metrics in real-time. Media platforms need to update feeds instantly. They use the exact same type of live API connections and data streams that your Discord bot uses to track messages and button clicks.</li>
+                    <li><strong>Asynchronous Execution:</strong> Imagine a restaurant where the waiter walks into the kitchen and stands there waiting for your steak to cook, refusing to serve any other tables until it's done. That restaurant would go bankrupt. That is blocking code. In this course, you will master Asynchronous Coding—teaching your bot to handle thousands of requests simultaneously without lagging.</li>
+                    <li><strong>Database Management:</strong> Every major application on Earth needs to securely save user data. When you build an economy or leveling system for your bot, you will learn how to read and write to databases. This is the foundation of data engineering.</li>
+                </ul>
+            </article>
+
+        </section>
+    </div>
+
+</body>
+  </html>
+  
