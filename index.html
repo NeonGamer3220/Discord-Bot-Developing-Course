@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Bot Academy Dashboard</title>
+    <title>Discord Bot Academy - Master Dashboard</title>
     <style>
         :root {
             --bg-main: #0b0f19;
@@ -13,8 +13,11 @@
             --text-muted: #9ca3af;
             --primary: #6366f1;
             --primary-hover: #4f46e5;
+            --tier2-color: #10b981;
+            --tier3-color: #a855f7;
             --success: #10b981;
             --border: #374151;
+            --code-bg: #1e1e2e;
         }
 
         body {
@@ -30,7 +33,7 @@
 
         /* Sidebar Navigation */
         .sidebar {
-            width: 280px;
+            width: 320px;
             background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
             display: flex;
@@ -43,10 +46,7 @@
             font-size: 1.25rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .brand span {
@@ -55,7 +55,7 @@
 
         /* Progress Tracking Section */
         .progress-container {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             background: rgba(255, 255, 255, 0.03);
             padding: 1rem;
             border-radius: 8px;
@@ -81,29 +81,52 @@
         .progress-bar-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--success));
+            background: linear-gradient(90deg, var(--primary), var(--tier3-color));
             transition: width 0.4s ease;
         }
 
-        /* Navigation List */
+        /* Navigation List with Scrollbar */
+        .nav-list-wrapper {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-right: -0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .nav-list-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+        .nav-list-wrapper::-webkit-scrollbar-thumb {
+            background-color: var(--border);
+            border-radius: 3px;
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem 0;
+            font-weight: 700;
+        }
+
         .nav-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            flex-grow: 1;
         }
 
         .nav-item {
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 0.8rem;
             border-radius: 6px;
             cursor: pointer;
             color: var(--text-muted);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             transition: all 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .nav-item:hover {
@@ -122,6 +145,8 @@
             height: 8px;
             border-radius: 50%;
             background-color: var(--border);
+            flex-shrink: 0;
+            margin-left: 0.5rem;
         }
 
         .status-dot.completed {
@@ -134,13 +159,13 @@
             padding: 3rem;
             overflow-y: auto;
             box-sizing: border-box;
-            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 40%);
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.03), transparent 40%);
         }
 
         .page {
             display: none;
-            max-width: 800px;
-            animation: fadeIn 0.3s ease-in-out;
+            max-width: 850px;
+            animation: fadeIn 0.2s ease-in-out;
         }
 
         .page.active {
@@ -148,62 +173,83 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Content Typography */
         .meta-tag {
-            color: var(--primary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             font-weight: 700;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
-            display: block;
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background-color: rgba(255,255,255,0.05);
         }
+        .tag-free { color: var(--primary); }
+        .tag-t2 { color: var(--tier2-color); }
+        .tag-t3 { color: var(--tier3-color); }
 
         h1 {
-            font-size: 2.25rem;
+            font-size: 2rem;
             margin-top: 0;
             color: #ffffff;
         }
 
         h3 {
             color: #ffffff;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-top: 2rem;
-            border-left: 3px solid var(--primary);
-            padding-left: 0.75rem;
         }
 
         p {
             color: #d1d5db;
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
-        ul {
+        ul, ol {
             padding-left: 1.25rem;
             color: #d1d5db;
         }
 
         li {
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
+            margin-bottom: 0.5rem;
         }
 
-        /* Interactive Buttons */
+        /* Code Block Layouts */
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #a9b1d6;
+            margin: 1.5rem 0;
+        }
+
+        .keyword { color: #bb9af7; }
+        .func { color: #7aa2f7; }
+        .str { color: #9ece6a; }
+        .comment { color: #565f89; font-style: italic; }
+        .decorator { color: #ff9e64; }
+
+        /* Buttons */
         .action-btn {
             background-color: var(--primary);
             color: #ffffff;
             border: none;
-            padding: 0.85rem 1.75rem;
-            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             transition: background-color 0.2s ease;
         }
 
@@ -211,13 +257,8 @@
             background-color: var(--primary-hover);
         }
 
-        .action-btn.complete-btn {
-            background-color: #059669;
-        }
-
-        .action-btn.complete-btn:hover {
-            background-color: #047857;
-        }
+        .action-btn.complete-btn { background-color: #059669; }
+        .action-btn.complete-btn:hover { background-color: #047857; }
     </style>
 </head>
 <body>
@@ -235,146 +276,141 @@
             </div>
         </div>
 
-        <ul class="nav-list">
-            <li class="nav-item active" onclick="switchPage('dashboard')">
-                <span>🏠 Dashboard Overview</span>
-                <div class="status-dot"></div>
-            </li>
-            <li class="nav-item" onclick="switchPage('lesson1')" id="nav-lesson1">
-                <span>📖 Lesson 1: Golden Ticket</span>
-                <div class="status-dot" id="dot-lesson1"></div>
-            </li>
-            <li class="nav-item" onclick="switchPage('lesson2')" id="nav-lesson2">
-                <span>🧠 Lesson 2: Coder Mindset</span>
-                <div class="status-dot" id="dot-lesson2"></div>
-            </li>
-            <li class="nav-item" onclick="switchPage('lesson3')" id="nav-lesson3">
-                <span>🚀 Lesson 3: Corporate Prep</span>
-                <div class="status-dot" id="dot-lesson3"></div>
-            </li>
-        </ul>
+        <div class="nav-list-wrapper">
+            <ul class="nav-list">
+                <li class="nav-item active" onclick="switchPage('dashboard')" id="nav-dashboard">
+                    <span>🏠 Dashboard Home</span>
+                    <div class="status-dot"></div>
+                </li>
+            </ul>
+
+            <div class="nav-section-title">Tier 1: Free Introduction</div>
+            <ul class="nav-list">
+                <li class="nav-item" onclick="switchPage('lesson1')" id="nav-lesson1"><span>01: Golden Ticket</span><div class="status-dot" id="dot-lesson1"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson2')" id="nav-lesson2"><span>02: Coder Mindset</span><div class="status-dot" id="dot-lesson2"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson3')" id="nav-lesson3"><span>03: Career Track</span><div class="status-dot" id="dot-lesson3"></div></li>
+            </ul>
+
+            <div class="nav-section-title" style="color: var(--tier2-color);">Tier 2: The Basics ($5)</div>
+            <ul class="nav-list">
+                <li class="nav-item" onclick="switchPage('lesson4')" id="nav-lesson4"><span>04: Toolbox Setup</span><div class="status-dot" id="dot-lesson4"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson5')" id="nav-lesson5"><span>05: Developer Portal</span><div class="status-dot" id="dot-lesson5"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson6')" id="nav-lesson6"><span>06: Gateway Intents</span><div class="status-dot" id="dot-lesson6"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson7')" id="nav-lesson7"><span>07: On Ready Event</span><div class="status-dot" id="dot-lesson7"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson8')" id="nav-lesson8"><span>08: Reading Messages</span><div class="status-dot" id="dot-lesson8"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson9')" id="nav-lesson9"><span>09: Infinite Loops</span><div class="status-dot" id="dot-lesson9"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson10')" id="nav-lesson10"><span>10: Prefix Commands</span><div class="status-dot" id="dot-lesson10"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson11')" id="nav-lesson11"><span>11: Dynamic Context</span><div class="status-dot" id="dot-lesson11"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson12')" id="nav-lesson12"><span>12: Argument Parsing</span><div class="status-dot" id="dot-lesson12"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson13')" id="nav-lesson13"><span>13: Capstone: Mod Bot</span><div class="status-dot" id="dot-lesson13"></div></li>
+            </ul>
+
+            <div class="nav-section-title" style="color: var(--tier3-color);">Tier 3: Advanced Coding ($10)</div>
+            <ul class="nav-list">
+                <li class="nav-item" onclick="switchPage('lesson14')" id="nav-lesson14"><span>14: Async Deep Dive</span><div class="status-dot" id="dot-lesson14"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson15')" id="nav-lesson15"><span>15: Slash Commands</span><div class="status-dot" id="dot-lesson15"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson16')" id="nav-lesson16"><span>16: Embed Construction</span><div class="status-dot" id="dot-lesson16"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson17')" id="nav-lesson17"><span>17: Embed Layout Matrix</span><div class="status-dot" id="dot-lesson17"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson18')" id="nav-lesson18"><span>18: Payload Guardrails</span><div class="status-dot" id="dot-lesson18"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson19')" id="nav-lesson19"><span>19: Interface UI Views</span><div class="status-dot" id="dot-lesson19"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson20')" id="nav-lesson20"><span>20: Button Components</span><div class="status-dot" id="dot-lesson20"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson21')" id="nav-lesson21"><span>21: The 3-Second Rule</span><div class="status-dot" id="dot-lesson21"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson22')" id="nav-lesson22"><span>22: Editing Messages</span><div class="status-dot" id="dot-lesson22"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson23')" id="nav-lesson23"><span>23: Select Menus</span><div class="status-dot" id="dot-lesson23"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson24')" id="nav-lesson24"><span>24: Managing Timeouts</span><div class="status-dot" id="dot-lesson24"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson25')" id="nav-lesson25"><span>25: Interactive Modals</span><div class="status-dot" id="dot-lesson25"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson26')" id="nav-lesson26"><span>26: Database Persistence</span><div class="status-dot" id="dot-lesson26"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson27')" id="nav-lesson27"><span>27: Economy Engines</span><div class="status-dot" id="dot-lesson27"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson28')" id="nav-lesson28"><span>28: Error Interception</span><div class="status-dot" id="dot-lesson28"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson29')" id="nav-lesson29"><span>29: 24/7 VPS Deployment</span><div class="status-dot" id="dot-lesson29"></div></li>
+                <li class="nav-item" onclick="switchPage('lesson30')" id="nav-lesson30"><span>30: Scaling & Monetization</span><div class="status-dot" id="dot-lesson30"></div></li>
+            </ul>
+        </div>
     </aside>
 
     <main class="main-content">
         
         <div id="dashboard" class="page active">
-            <span class="meta-tag">Welcome Student</span>
-            <h1>Your Learning Hub</h1>
-            <p>Welcome to Tier 1 of the Discord Bot Academy. This space is structured exactly like a professional software development training interface.</p>
-            <p>Select a lesson from the menu on the left side to begin reading. Track your learning milestones dynamically as you work your way toward building profitable digital products.</p>
-            <button class="action-btn" onclick="switchPage('lesson1')">Start First Lesson</button>
+            <span class="meta-tag tag-free">Welcome Student</span>
+            <h1>Discord Bot Academy Workspace</h1>
+            <p>Welcome to your complete development environment. This application houses all 30 lessons spanning the free introduction to professional cloud hosting architectures.</p>
+            <p>Use the navigation menu on the left to select any available module. Track your progress instantly across all core engineering objectives.</p>
+            <button class="action-btn" onclick="switchPage('lesson1')">Open Lesson 1</button>
         </div>
 
         <div id="lesson1" class="page">
-            <span class="meta-tag">Lesson 1 / Tier 1</span>
-            <h1>Why Discord Bots Are Your Golden Ticket to Coding</h1>
-            <p>Welcome to the world of software engineering! If you have ever wanted to learn how to code but felt completely overwhelmed by confusing textbooks or boring math tutorials, you are in the exact right place.</p>
-            <p>Most people fail when they try to learn programming because they start with projects that aren't exciting. They spend weeks writing code that only prints simple numbers or words in a boring black terminal box. It feels isolated, and it is easy to lose motivation. Discord bot development changes everything.</p>
-            
-            <h3>The Power of Immediate Visual Feedback</h3>
-            <p>When you code a Discord bot, you aren't writing code in a vacuum. You are building an actual digital teammate. The moment you type a line of code, your bot instantly springs to life inside a real Discord server. You can see its status change to green, see its profile picture, and watch it reply to your friends in real-time.</p>
-            <p>That instant feedback loop creates a massive spike in motivation. It turns coding from a chore into an interactive system where every feature you add is a new level unlocked.</p>
-            
-            <h3>The Financial Blueprint: How Bots Make Money</h3>
-            <p>You aren't just learning a hobby here; you are building a scalable business asset. Here is how developers use them to generate revenue to support themselves and their families:</p>
-            <ul>
-                <li><strong>Premium Tier Features:</strong> You give the basic bot away for free to thousands of servers, but lock advanced features (like automated server economies, custom graphics, or specialized logging) behind a monthly subscription.</li>
-                <li><strong>Custom Contract Development:</strong> Gaming communities, streamers, and businesses are constantly looking for custom bots tailored specifically to their needs. They will pay clean premiums to a developer who can build custom automation.</li>
-                <li><strong>Server Ads and Sponsorships:</strong> Once a bot reaches a large volume of daily active users, your bot's profile or help panels become prime digital real estate for tech and gaming sponsorships.</li>
-            </ul>
-            <button class="action-btn complete-btn" onclick="completeLesson('lesson1', 'lesson2')">Mark Complete & Next</button>
+            <span class="meta-tag tag-free">Lesson 01</span>
+            <h1>Why Discord Bots Are Your Golden Ticket</h1>
+            <p>Most beginners quit coding because typing logic patterns into a black terminal screen feels detached from reality. Discord bot engineering provides immediate visual gratification.</p>
+            <p>Every time you run your code, a real account status turns green in your server, instantly verifying your efforts. Furthermore, highly active public bots open up unique monetization avenues, such as charging premium subscriptions for server utilities or landing custom programming contracts for large web groups.</p>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson1', 'lesson2')">Complete & Next</button>
         </div>
 
         <div id="lesson2" class="page">
-            <span class="meta-tag">Lesson 2 / Tier 1</span>
-            <h1>What Does It Actually "Feel Like" to Be a Developer?</h1>
-            <p>Before you write your first line of code, we need to completely demystify what a software engineer actually does. A lot of movies make coding look like someone typing rapidly on a glowing screen, hacking into a system in seconds. That is completely fake.</p>
-            
-            <h3>The LEGO Brick Analogy</h3>
-            <p>Being a developer feels much more like playing with a massive box of digital LEGO bricks.</p>
-            <ul>
-                <li>Discord provides you with the raw pieces: text channels, user profiles, clickable buttons, and menus.</li>
-                <li>Python provides you with the glue: tools to connect those pieces together, make decisions, and manipulate data.</li>
-            </ul>
-            <p>Your job as a programmer is simply to look at the documentation, figure out how these pieces click together, and arrange them to build something cool. You don't have to invent anything from scratch.</p>
-            
-            <h3>Redefining Your Relationship with Errors</h3>
-            <p>As you begin your journey, you <em>will</em> run into errors. Your code will break, your bot will crash, and your computer will output lines of bright red text. Beginners often see an error message and think: <em>"I'm not smart enough for this. I failed."</em></p>
-            <p><strong>A professional developer sees an error message and thinks:</strong> <em>"Awesome, the computer is telling me exactly where the problem is."</em></p>
-            <p>An error message isn't a grade; it's a helpful clue. It is your computer acting as a navigation system, pointing to the exact line number where you made a typo or a logical mistake. Once you stop fearing errors, you become completely unstoppable.</p>
-            <button class="action-btn complete-btn" onclick="completeLesson('lesson2', 'lesson3')">Mark Complete & Next</button>
+            <span class="meta-tag tag-free">Lesson 02</span>
+            <h1>What Does It Feel Like to Code?</h1>
+            <p>Programming is less about math and more like building with digital LEGO bricks. Discord offers structural parts like message boards, icons, and text boxes. Python acts as the structural mortar binding those items to automated behaviors.</p>
+            <p>When code crashes, your output panel will show debugging text lines. Professional developers view bugs as precise roadmaps indicating typos or incorrect arguments rather than failures.</p>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson2', 'lesson3')">Complete & Next</button>
         </div>
 
         <div id="lesson3" class="page">
-            <span class="meta-tag">Lesson 3 / Tier 1</span>
-            <h1>How This Project Prepares You for a High-Paying Tech Career</h1>
-            <p>It is easy to think of a Discord bot as just a toy or a simple gaming tool. But behind the scenes, a Discord bot uses the exact same software architecture as the world's highest-paid backend systems.</p>
-            <p>When tech recruiters look at a candidate's resume, they don't care about school grades nearly as much as they care about real-world projects. By building a Discord bot, you are checking off the exact skill boxes that top tech companies look for.</p>
-            
-            <h3>The Real-World Corporate Skills You Are Secretly Learning:</h3>
-            <ul>
-                <li><strong>Handling WebSockets and Web APIs:</strong> Live dispatch services need to track metrics in real-time. Media platforms need to update feeds instantly. They use the exact same type of live API connections and data streams that your Discord bot uses to track messages and button clicks.</li>
-                <li><strong>Asynchronous Execution:</strong> Imagine a restaurant where the waiter walks into the kitchen and stands there waiting for your steak to cook, refusing to serve any other tables until it's done. That restaurant would go bankrupt. That is blocking code. In this course, you will master Asynchronous Coding—teaching your bot to handle thousands of requests simultaneously without lagging.</li>
-                <li><strong>Database Management:</strong> Every major application on Earth needs to securely save user data. When you build an economy or leveling system for your bot, you will learn how to read and write to databases. This is the foundation of data engineering.</li>
-            </ul>
-            <button class="action-btn complete-btn" onclick="completeLesson('lesson3', 'dashboard')">Complete Tier 1 Course! 🎉</button>
+            <span class="meta-tag tag-free">Lesson 03</span>
+            <h1>Corporate Track Engineering Readiness</h1>
+            <p>A functional Discord bot handles active WebSockets, real-time data delivery pipelines, and asynchronous connections. These are the exact system paradigms used by major tech backends like streaming platforms and transaction routing applications to process concurrent actions globally.</p>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson3', 'lesson4')">Complete & Next</button>
         </div>
 
-    </main>
+        <div id="lesson4" class="page">
+            <span class="meta-tag tag-t2">Lesson 04 / Tier 2 Basics</span>
+            <h1>Setting Up Your Environment</h1>
+            <p>Before writing code, download Python from the official site and add it to your environment variables. Then, install Visual Studio Code as your central text-editing layout.</p>
+            <p>Verify your command line terminal terminal configuration works by running:</p>
+            <pre>python --version</pre>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson4', 'lesson5')">Complete & Next</button>
+        </div>
 
-    <script>
-        // Track unique completion states
-        const completedLessons = {
-            lesson1: false,
-            lesson2: false,
-            lesson3: false
-        };
+        <div id="lesson5" class="page">
+            <span class="meta-tag tag-t2">Lesson 05</span>
+            <h1>The Discord Developer Portal</h1>
+            <p>Navigate to the official Discord Developer Portal website, create a "New Application", and select the "Bot" settings module. Here, copy your private <strong>Bot Token</strong>.</p>
+            <p>Treat this alphanumeric string exactly like a secure root password. Anyone possessing your token can completely hijack your bot account profile.</p>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson5', 'lesson6')">Complete & Next</button>
+        </div>
 
-        // Switch visible page layouts
-        function switchPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+        <div id="lesson6" class="page">
+            <span class="meta-tag tag-t2">Lesson 06</span>
+            <h1>Configuring Gateway Intents</h1>
+            <p>Discord blocks your script from reading messages by default to protect privacy. You must navigate to your Application's bot panel and manually slide the toggle to enable <strong>Message Content Intent</strong>. Without this step, your code cannot interpret user sentences.</p>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson6', 'lesson7')">Complete & Next</button>
+        </div>
 
-            // Manage active navigation highlights
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Add highlight to current sidebar item if it exists
-            const activeNavItem = document.getElementById('nav-' + pageId);
-            if(activeNavItem) activeNavItem.classList.add('active');
-        }
+        <div id="lesson7" class="page">
+            <span class="meta-tag tag-t2">Lesson 07</span>
+            <h1>Writing Your First Event Listener</h1>
+            <p>We write our initialization file using `discord.py`. We initialize our bot client using explicit Intents filters, then listen for the initialization signal.</p>
+<pre><span class="keyword">import</span> discord
+<span class="keyword">from</span> discord.ext <span class="keyword">import</span> commands
 
-        // Handle mark complete triggers
-        function completeLesson(currentLessonId, nextPageId) {
-            if (!completedLessons[currentLessonId]) {
-                completedLessons[currentLessonId] = true;
-                
-                // Color sidebar visual dots
-                document.getElementById('dot-' + currentLessonId).classList.add('completed');
-                
-                // Calculate and refresh metrics
-                updateProgressBar();
-            }
-            switchPage(nextPageId);
-        }
+intents = discord.Intents.default()
+intents.message_content = <span class="keyword">True</span>
+bot = commands.Bot(command_prefix=<span class="str">"!"</span>, intents=intents)
 
-        // Recalculate full tracking engine values
-        function updateProgressBar() {
-            const total = Object.keys(completedLessons).length;
-            const completedCount = Object.values(completedLessons).filter(val => val === true).length;
-            
-            const percentage = Math.round((completedCount / total) * 100);
-            
-            // Animate HTML indicators
-            document.getElementById('progress-fill').style.width = percentage + '%';
-            document.getElementById('progress-percent').innerText = percentage + '%';
-        }
-    </script>
-</body>
-            </html>
-                
+<span class="decorator">@bot.event</span>
+<span class="keyword">async def</span> <span class="func">on_ready</span>():
+    <span class="func">print</span>(f<span class="str">"Bot running as {bot.user.name}"</span>)
+
+<span class="comment"># bot.run('TOKEN')</span></pre>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson7', 'lesson8')">Complete & Next</button>
+        </div>
+
+        <div id="lesson8" class="page">
+            <span class="meta-tag tag-t2">Lesson 08</span>
+            <h1>Reading Chat Messages</h1>
+            <p>To inspect everything typed into a server channel, we utilize the global `on_message` gateway interceptor event frame.</p>
+<pre><span class="decorator">@bot.event</span>
+<span class="keyword">async def</span> <span class="func">on_message</span>(message):
+    <span class="keyword">if</span> message.content == <span class="str">"ping"</span>:
+        <span class="keyword">await</span> message.channel.send(<span class="str">"pong"</span>)</pre>
+            <button class="action-btn complete-btn" onclick="completeLesson('lesson8', 'lesson9')">Complete & Next</button>
+  
